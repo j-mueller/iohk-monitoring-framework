@@ -10,6 +10,7 @@
 
 module Cardano.BM.Data.Severity
   ( Severity (..)
+  , sev2klog
   )
   where
 
@@ -17,6 +18,8 @@ import           Data.Aeson (FromJSON (..), ToJSON)
 import           Data.Yaml (withText)
 
 import           GHC.Generics (Generic)
+
+import qualified Katip as K
 
 \end{code}
 %endif
@@ -65,5 +68,17 @@ instance FromJSON Severity where
                     "Alert"     -> pure Alert
                     "Emergency" -> pure Emergency
                     _           -> pure Info   -- catch all
+
+-- translate Severity to Log.Severity
+sev2klog :: Severity -> K.Severity
+sev2klog = \case
+    Debug     -> K.DebugS
+    Info      -> K.InfoS
+    Notice    -> K.NoticeS
+    Warning   -> K.WarningS
+    Error     -> K.ErrorS
+    Critical  -> K.CriticalS
+    Alert     -> K.AlertS
+    Emergency -> K.EmergencyS
 
 \end{code}

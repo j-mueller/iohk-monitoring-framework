@@ -27,7 +27,6 @@ executable example-simple
                        aeson,
                        iohk-monitoring,
                        lobemo-backend-editor,
-                       lobemo-scribe-systemd,
                        async,
                        bytestring,
                        mtl

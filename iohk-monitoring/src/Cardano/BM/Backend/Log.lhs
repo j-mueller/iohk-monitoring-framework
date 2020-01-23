@@ -76,6 +76,7 @@ import           Cardano.BM.Data.Rotation (RotationParameters (..))
 import           Cardano.BM.Data.Severity
 import           Cardano.BM.Rotator (cleanupRotator, evalRotator,
                      initializeRotator, prtoutException)
+import           Cardano.BM.Scribe.Systemd
 
 \end{code}
 %endif
@@ -185,7 +186,8 @@ registerScribes (defsc : dscs) le = do
                                                     False
     createScribe StdoutSK sctype _ _ = mkStdoutScribe sctype
     createScribe StderrSK sctype _ _ = mkStderrScribe sctype
-    createScribe DevNullSK _ _ _ = mkDevNullScribe
+    createScribe JournalSK sctype _ _ = mkStderrScribe sctype
+    createScribe DevNullSK _ name _ = mkJournalScribe name
     createScribe UserDefinedSK ty nm rot = createScribe FileSK ty nm rot
 
 \end{code}
@@ -513,18 +515,6 @@ formatItem withColor _verb K.Item{..} =
     colorize c m
       | withColor = "\ESC["<> c <> "m" <> m <> "\ESC[0m"
       | otherwise = m
-
--- translate Severity to Log.Severity
-sev2klog :: Severity -> K.Severity
-sev2klog = \case
-    Debug     -> K.DebugS
-    Info      -> K.InfoS
-    Notice    -> K.NoticeS
-    Warning   -> K.WarningS
-    Error     -> K.ErrorS
-    Critical  -> K.CriticalS
-    Alert     -> K.AlertS
-    Emergency -> K.EmergencyS
 
 \end{code}
 

@@ -11,7 +11,6 @@ packages:
   - plugins/backend-monitoring
   - plugins/backend-trace-acceptor
   - plugins/backend-trace-forwarder
-  - plugins/scribe-systemd
   - examples
 
 extra-deps:

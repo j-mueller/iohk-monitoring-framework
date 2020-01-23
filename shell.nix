@@ -31,7 +31,6 @@ default.nix-tools._raw.shellFor {
     lobemo-backend-graylog
     lobemo-backend-monitoring
     lobemo-examples
-    lobemo-scribe-systemd
     tracer-transformers
   ];
   withHoogle  = withHoogle;

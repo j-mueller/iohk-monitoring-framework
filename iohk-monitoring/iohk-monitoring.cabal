@@ -60,6 +60,7 @@ library
                        Cardano.BM.Plugin
                        Cardano.BM.Rotator
                        Cardano.BM.Setup
+                       Cardano.BM.Scribe.Systemd
                        Cardano.BM.Trace
                        Cardano.BM.Tracer
 

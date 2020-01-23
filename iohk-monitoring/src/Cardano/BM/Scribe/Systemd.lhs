@@ -38,7 +38,6 @@ import qualified Katip.Core as KC
 import           Katip.Format.Time (formatAsIso8601)
 
 import           Cardano.BM.Configuration
-import           Cardano.BM.Backend.Log (sev2klog)
 import           Cardano.BM.Data.Backend
 import           Cardano.BM.Data.Severity
 import           Cardano.BM.Data.Trace

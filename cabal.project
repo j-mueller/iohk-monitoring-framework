@@ -10,7 +10,6 @@ packages:
   plugins/backend-monitoring
   plugins/backend-trace-acceptor
   plugins/backend-trace-forwarder
-  plugins/scribe-systemd
   examples
 
 package iohk-monitoring
