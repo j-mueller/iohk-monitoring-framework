@@ -144,7 +144,10 @@ realizeAcceptor baseTrace ra@(RemotePipe pipePath) = mdo
        openPipe `catch` \(_ :: IOException) -> retryPipeCreation pipePath
 
 realizeAcceptor sbtrace (RemoteSocket addr serv) = do
-    undefined
+  addrs <- Socket.getAddrInfo Nothing (Just addr) (Just serv)
+  addr <- case addrs of
+    [] -> throwIO $ IO.mkIOError IO.userErrorType "bad socket address" Nothing (Just $ addr <> ":" <> serv)
+    a:_ -> pure a
 
 \end{code}
 
