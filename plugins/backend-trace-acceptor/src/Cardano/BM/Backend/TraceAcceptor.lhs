@@ -64,8 +64,8 @@ plugin :: forall s a
        => Configuration -> Trace.Trace IO a -> s a -> IO (Plugin a)
 plugin cf basicTrace _ = getAcceptAt cf >>= \case
   Just acceptors -> do
-    socketsNServers <- forM acceptors $ \(RemoteAddrNamed nodeName addr) -> do
-      let trace = Trace.appendName nodeName basicTrace
+    socketsNServers <- forM acceptors $ \(RemoteAddrNamed nodenm addr) -> do
+      let trace = Trace.appendName nodenm basicTrace
       sock <- mkAcceptor addr
       serverThr <- Async.async . forever $ acceptConnection trace sock
       Async.link serverThr
