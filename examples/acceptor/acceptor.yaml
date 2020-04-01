@@ -43,6 +43,7 @@ traceAcceptAt:
     remoteAddr:
       tag: RemotePipe
       contents: "logs/pipe"
+      # contents: "\\\\.\\pipe\\acceptor" # Windows
   - nodeName: "b"
     remoteAddr:
       tag: RemoteSocket
