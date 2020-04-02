@@ -119,7 +119,7 @@ instance (FromJSON a, ToJSON a) => IsBackend TraceForwarder a where
 handleError :: (String -> BackendFailure TraceForwarder) -> IO a -> IO a
 handleError ctor = flip catch $ \(e :: IOException) -> throwIO . ctor . show $ e
 
-connectForwarder :: IOManager -> RemoteAddr -> IO Handle
+connectForwarder :: AssociateWithIOCP -> RemoteAddr -> IO Handle
 connectForwarder iomgr (RemotePipe pipePath) = do
   let sn = Snocket.localSnocket iomgr pipePath
   Snocket.localFDToHandle =<< (doConnect sn $ Snocket.localAddressFromPath pipePath)

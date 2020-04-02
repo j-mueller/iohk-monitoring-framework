@@ -125,7 +125,7 @@ instance Exception TraceAcceptorBackendFailure
 acceptorForAddress
   :: FromJSON a
   => Trace.Trace IO a
-  -> IOManager
+  -> AssociateWithIOCP
   -> RemoteAddr
   -> IO (IO (), Async.Async ())
 acceptorForAddress trace iomgr (RemotePipe pipePath) =
@@ -161,9 +161,9 @@ acceptorForSnocket trace toHandle sn addr = do
       \sock -> acceptLoop $ Snocket.accept sn sock
   pure (Snocket.close sn sock, server)
  where
-   acceptLoop :: Snocket.Accept addr fd -> IO ()
+   acceptLoop :: Snocket.Accept IO SomeException addr fd -> IO ()
    acceptLoop (Snocket.Accept accept) = do
-      (cfd, _caddr, k) <- accept
+      (Snocket.AcceptOk cfd _caddr, k) <- accept
       h <- toHandle cfd
       _client <- Async.async $ clientThread trace h
       acceptLoop k
